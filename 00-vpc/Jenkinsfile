@@ -27,11 +27,14 @@ pipeline {
             stage('Init'){
                 steps{
                     script{
-                        sh """
+                       withAWS(region: 'us-east-1', credentials: 'aws-creds'){
+                            
+                           sh """
                             cd 00-vpc
                             terraform init -reconfigure
 
                         """
+                        }
                     }
                 }
             }
