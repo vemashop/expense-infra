@@ -17,7 +17,7 @@ pipeline {
     }  
 
     stages {
-            stage('Init'){
+            /* stage('Init'){
                 steps{
                     script{
                        withAWS(region: 'us-east-1', credentials: 'aws-creds'){
@@ -32,8 +32,8 @@ pipeline {
                     }
                 }
             }
-
-            stage('Apply'){
+ */
+            /* stage('Apply'){
                 steps{
                     script{
                        withAWS(region: 'us-east-1', credentials: 'aws-creds'){
@@ -46,19 +46,37 @@ pipeline {
                         }
                     }
                 }
+            } */
+            stage('Destroy Infra') {
+            steps {
+               script{
+                withAWS(region: 'us-east-1', credentials: 'aws-creds') {
+                    def list = ["30-rds", "20-bastion", "10-sg", "00-vpc"]
+                    for(item in list){
+                        sh """
+                            cd $item
+                            terraform init -reconfigure
+                            terraform destroy -auto-approve
+                        """
+                    }
+                }
+                 
+               }
             }
             
     }
-    post { 
-            always { 
-             echo 'I will always say Hello again!'
-             deleteDir()
-        }
-            failure { 
-             echo 'I will run when pipeline failed'
-        }
-            success { 
-             echo 'I will run when pipeline success'
-        }
+    
     }
-}
+    post { 
+                always { 
+                echo 'I will always say Hello again!'
+                deleteDir()
+            }
+                failure { 
+                echo 'I will run when pipeline failed'
+            }
+                success { 
+                echo 'I will run when pipeline success'
+            }
+        }
+}        

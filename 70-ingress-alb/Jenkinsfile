@@ -28,7 +28,7 @@ pipeline {
                }
             }
         }
-        /* stage('Apply or Destroy') {
+        stage('Apply or Destroy') {
             steps {
                script{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
@@ -45,8 +45,8 @@ pipeline {
                  
                }
             }
-        } */
-        stage('Destroy Infra') {
+        }
+        /* stage('Destroy Infra') {
             steps {
                script{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
@@ -62,7 +62,7 @@ pipeline {
                  
                }
             }
-        }
+        } */
         
     }
     post { 
