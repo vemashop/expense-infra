@@ -17,7 +17,7 @@ pipeline {
     }  
 
     stages {
-            /* stage('Init'){
+            stage('Init'){
                 steps{
                     script{
                        withAWS(region: 'us-east-1', credentials: 'aws-creds'){
@@ -32,8 +32,8 @@ pipeline {
                     }
                 }
             }
- */
-            /* stage('Apply'){
+ 
+            stage('Apply'){
                 steps{
                     script{
                        withAWS(region: 'us-east-1', credentials: 'aws-creds'){
@@ -46,8 +46,8 @@ pipeline {
                         }
                     }
                 }
-            } */
-            stage('Destroy Infra') {
+            }
+            /* stage('Destroy Infra') {
             steps {
                script{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
@@ -62,7 +62,7 @@ pipeline {
                 }
                  
                }
-            }
+            } */
             
     }
     
